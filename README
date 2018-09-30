@@ -1,0 +1,32 @@
+
+arguments:
+trial
+game steps
+directoty
+tag
+mdl_train_mode -- regular, baseline, subtask, non-mistake, mistake
+type(backtracking) -- normal, random, non-mistake, neg, special, sub
+mdl_probability -- 0-1 (float)
+domain -- Atlantis-v4
+update_frequency (recommended 4)
+subtasks_k	(number of steps per subtask)
+mdl_gamesteps_k (float)
+buffer size	(also max back of state restored by agent when a mistake happens)
+min back  (most recent state the agent will restore to)
+
+There are 5 running modes that are controlled through arguments mdl_train_mode and backtracking:
+
+- baseline normal: No use of mistakes, normal run
+- baseline neg: Negative reward
+- baseline special: Restores to a previous state when a mistake happens based on the probability given
+- regular normal: Switches from normal running mode to running subtasks, subtasks run for a maximum of
+					subtask_k steps each, and the number of subtasks run is such that the total number of steps
+					is not more than the average number of steps on the last update_frequency episodes
+					times mdl_gamesteps_k
+- regular random: Identical to regular normal with the only difference being that subtasks are randomly selected
+
+- regular sub: When a mistake happens, based on some probability mdl_probability, the agent transitions to subtask mode.
+				Subtask mode works as descibed in the running modes above.
+
+
+
